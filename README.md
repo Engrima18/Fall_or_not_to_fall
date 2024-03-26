@@ -75,6 +75,6 @@ After scaling, resampling with a K-Means SMOTE and selecting a coherent number o
 |-------------|-------------|-------------|
 ![knn_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/a178d10b-c9b2-4c42-967a-4f4e6e8de4ab)|![svm_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/c8e6f952-deee-4951-8770-1e21b422e71d)|![softmax_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/bb97a4b8-2eae-4b01-a90a-cce857088d8b)
 
-| AdaBoost    | Randnom forest    | Perceptron    | 
+| AdaBoost    | Random forest    | Perceptron    | 
 |-------------|-------------|-------------|
 ![adaboost_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/0648cd06-0a77-4f59-96fd-a91e8b494f3f)|![rf_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/420538d0-ff9b-4d1d-bc28-151f40c21477)|![percptron_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/ab6b6587-d132-4605-a033-5e677e4b8ddf)
