@@ -51,7 +51,8 @@ def signal_plot(sampled_rows: pd.DataFrame) -> None:
     return None
 
 
-def fft_plot(sampled_rows: pd.DataFrame, device: str) -> None:
+def fft_plot(sampled_rows: pd.DataFrame, 
+             device: str) -> None:
     """
     Plots the Fast Fourier Transform (FFT) magnitude for sampled rows of a specific device.
 
@@ -98,7 +99,8 @@ def fft_plot(sampled_rows: pd.DataFrame, device: str) -> None:
     return None
 
 
-def maxbin_plot(sampled_rows: pd.DataFrame, device: str) -> None:
+def maxbin_plot(sampled_rows: pd.DataFrame, 
+                device: str) -> None:
     """
     Plots the power spectrum peaks for sampled rows of a specific device.
 

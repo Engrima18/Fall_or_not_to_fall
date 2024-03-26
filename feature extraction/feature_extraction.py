@@ -1,5 +1,5 @@
 
-from typing import List, Union
+from typing import List, Union, Tuple, Optional
 import pandas as pd
 import os
 import numpy as np
@@ -50,7 +50,8 @@ def flatten_ts(data: pd.DataFrame) -> pd.DataFrame:
 
 ######## FUNCTIONS FOR VECTORIAL SUM (INTENSITY OF VECTORS IN 3-D SPACE) ####################################################################
 
-def chunk_splitting(row: pd.Series, dim: int = 2400) -> List[np.ndarray]:
+def chunk_splitting(row: pd.Series, 
+                    dim: int = 2400) -> List[np.ndarray]:
     """
     Splits a row into chunks of a specified size.
 
@@ -97,7 +98,9 @@ def gyr_sum(vec: List[float]) -> float:
     return gyr
 
 
-def vec_sum(new_data: pd.DataFrame, both: bool = True, dim: int = 2400) -> Tuple[pd.DataFrame, np.ndarray]:
+def vec_sum(new_data: pd.DataFrame, 
+            both: bool = True, 
+            dim: int = 2400) -> Tuple[pd.DataFrame, np.ndarray]:
     """
     Applies vectorial sum to accelerometer and gyroscope data.
 
@@ -186,19 +189,19 @@ def take_peak(signal: np.ndarray) -> np.ndarray:
         np.ndarray: A segment of the signal centered around its maximum peak.
     """
 
-     half_window = 20
-     peak_df = find_max_peak(signal)
-     idx = peak_df["idx"].iloc[0]
-     # take the values inside the window centered around the actual peak
-     # but first check if the peak is in extreme positions of the signal
-     if (idx - half_window) < 0:
+    half_window = 20
+    peak_df = find_max_peak(signal)
+    idx = peak_df["idx"].iloc[0]
+    # take the values inside the window centered around the actual peak
+    # but first check if the peak is in extreme positions of the signal
+    if (idx - half_window) < 0:
         temp = signal[: (idx + half_window)]
-     elif (idx + half_window) > len(signal):
+    elif (idx + half_window) > len(signal):
         temp = signal[(idx - half_window) :]
-     else:
-         temp = signal[(idx - half_window):(idx + half_window)]
-       
-     return temp       
+    else:
+        temp = signal[(idx - half_window):(idx + half_window)]
+    
+    return temp       
 
 
 def mean_peak_pattern(df: pd.DataFrame) -> np.ndarray:
@@ -318,7 +321,10 @@ def extract_wave_df(dir_name: str) -> np.ndarray:
 
 ##### FAST FOURIER TRANSFORM STATISTICS FEATURE EXTRACTION #############################################################################
 
-def maxbin(row: Union[List[float], np.ndarray], plot: bool, precision: int = -1, n_bins: int = 10) -> List[float]:
+def maxbin(row: Union[List[float], np.ndarray], 
+           plot: bool, 
+           precision: int = -1, 
+           n_bins: int = 10) -> List[float]:
     """
     Calculates the maximum value in each bin of the data.
 
@@ -351,7 +357,10 @@ def maxbin(row: Union[List[float], np.ndarray], plot: bool, precision: int = -1,
         return max_values[:(precision + 1)]
 
 
-def fourier_magnitudes(signal: np.ndarray, n_bins: int = 10, precision: int = -1, plot: bool = False) -> np.ndarray:
+def fourier_magnitudes(signal: np.ndarray, 
+                       n_bins: int = 10, 
+                       precision: int = -1, 
+                       plot: bool = False) -> np.ndarray:
     """
     This function takes a matrix (signal) which contains a time series for each row.
     It applies the Fast Fourier Transform and uses the get_max_per_bin function to find the maximum peaks for each bin of the arrays of the power spectrum for the FFT.
@@ -424,7 +433,10 @@ def adjust_df(s: pd.Series) -> pd.DataFrame:
 
 ##### FUNCTIONS FOR PEAKS WAVELETS MAX COEFFICIENTS #####################################################################################
 
-def cwt_coeff(peak_wave: np.ndarray, mother_wave: np.ndarray, scale: float, translation: float) -> float:
+def cwt_coeff(peak_wave: np.ndarray, 
+              mother_wave: np.ndarray, 
+              scale: float, 
+              translation: float) -> float:
     """
     Calculates the continuous wavelet transform coefficient for a peak wave.
 
@@ -443,7 +455,8 @@ def cwt_coeff(peak_wave: np.ndarray, mother_wave: np.ndarray, scale: float, tran
     return coeff
 
 
-def max_cwt_coeff(peak_wave: np.ndarray, mother_wave: np.ndarray) -> float:
+def max_cwt_coeff(peak_wave: np.ndarray, 
+                  mother_wave: np.ndarray) -> float:
     """
     Finds the maximum continuous wavelet transform coefficient for a given peak wave.
 
@@ -463,7 +476,10 @@ def max_cwt_coeff(peak_wave: np.ndarray, mother_wave: np.ndarray) -> float:
             max_coeff = new_coeff
     return max_coeff
 
-def peakes_wavelet_approx(signal: np.ndarray, mother_wave: np.ndarray, plot: bool = False, label: Optional[str] = None) -> float:
+def peakes_wavelet_approx(signal: np.ndarray, 
+                          mother_wave: np.ndarray, 
+                          plot: bool = False, 
+                          label: Optional[str] = None) -> float:
     """
     Approximates the wavelet of the peaks in a signal.
 
@@ -517,7 +533,8 @@ def peakes_wavelet_approx(signal: np.ndarray, mother_wave: np.ndarray, plot: boo
         plt.show()
     return max_cwt
 
-def acc_max_cwt(row: Union[List[float], np.ndarray], mother_wave: np.ndarray) -> float:
+def acc_max_cwt(row: Union[List[float], np.ndarray], 
+                mother_wave: np.ndarray) -> float:
     """
     Calculates the maximum continuous wavelet transform coefficient for accelerometer data.
 
@@ -536,7 +553,9 @@ def acc_max_cwt(row: Union[List[float], np.ndarray], mother_wave: np.ndarray) ->
 
 ##### FINAL FUNCTION FOR PREPROCESSING ################################################################################################
 
-def preproc(data: pd.DataFrame, n_bins: int = 10, precision: int = 4) -> pd.DataFrame:
+def preproc(data: pd.DataFrame, 
+            n_bins: int = 10, 
+            precision: int = 4) -> pd.DataFrame:
     """
     Performs preprocessing on the given data including flattening, vector sums, Fourier transforms, and more.
 

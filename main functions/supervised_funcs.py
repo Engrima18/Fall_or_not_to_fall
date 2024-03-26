@@ -27,11 +27,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 from collections import defaultdict, Counter
+from typing import List, Union, Tuple, Optional
 
 
 #### CLASSIFIERS BEST FIT ##############################################################################################################
 
-def fit_qda_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, score: str) -> Tuple[np.ndarray, dict]:
+def fit_qda_model(X_train: pd.DataFrame, 
+                  X_test: pd.DataFrame, 
+                  y_train: pd.Series, 
+                  score: str) -> Tuple[np.ndarray, dict]:
     """
     Fits a Quadratic Discriminant Analysis (QDA) model and returns predictions and best parameters.
 
@@ -74,7 +78,10 @@ def fit_qda_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Serie
     return y_pred, grid_search.best_params_
 
 
-def fit_lda_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, score: str) -> Tuple[np.ndarray, dict]:
+def fit_lda_model(X_train: pd.DataFrame, 
+                  X_test: pd.DataFrame, 
+                  y_train: pd.Series, 
+                  score: str) -> Tuple[np.ndarray, dict]:
     """
     Fits a Linear Discriminant Analysis (LDA) model and returns predictions and best parameters.
 
@@ -120,7 +127,11 @@ def fit_lda_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Serie
     return y_pred, grid_search.best_params_
 
 
-def fit_linear_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, loss: str, score: str) -> Tuple[np.ndarray, dict]:
+def fit_linear_model(X_train: pd.DataFrame, 
+                     X_test: pd.DataFrame, 
+                     y_train: pd.Series, 
+                     loss: str, 
+                     score: str) -> Tuple[np.ndarray, dict]:
     """
     Fits a linear model using Stochastic Gradient Descent and returns predictions and best parameters.
 
@@ -168,7 +179,11 @@ def fit_linear_model(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Se
     return(y_pred, grid_search.best_params_)
 
 
-def best_softmax_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series, binary: bool = False) -> Tuple[np.ndarray, LogisticRegression, dict]:
+def best_softmax_fit(X_train: pd.DataFrame, 
+                     X_test: pd.DataFrame, 
+                     y_train: pd.Series, 
+                     y_test: pd.Series, 
+                     binary: bool = False) -> Tuple[np.ndarray, LogisticRegression, dict]:
     """
     Fits a Softmax Regression model (Logistic Regression) and returns predictions, the fitted model, and best parameters.
 
@@ -210,7 +225,10 @@ def best_softmax_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Se
     return softmax_preds, softmax_clf, sm_search.best_params_
 
 
-def best_rf_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series) -> Tuple[np.ndarray, RandomForestClassifier, dict]:
+def best_rf_fit(X_train: pd.DataFrame, 
+                X_test: pd.DataFrame, 
+                y_train: pd.Series, 
+                y_test: pd.Series) -> Tuple[np.ndarray, RandomForestClassifier, dict]:
     """
     Fits a Random Forest Classifier and returns predictions, the fitted model, and best parameters.
 
@@ -248,7 +266,10 @@ def best_rf_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series,
     return rf_preds, rf_clf, rf_search.best_params_
 
 
-def best_svm_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series, y_test: pd.Series) -> Tuple[np.ndarray, SVC, dict]:
+def best_svm_fit(X_train: pd.DataFrame, 
+                 X_test: pd.DataFrame, 
+                 y_train: pd.Series, 
+                 y_test: pd.Series) -> Tuple[np.ndarray, SVC, dict]:
     """
     Fits a Support Vector Machine (SVM) classifier and returns predictions, the fitted model, and best parameters.
 
@@ -285,7 +306,12 @@ def best_svm_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_train: pd.Series
     return svm_preds, svm_clf, svm_search.best_params_
 
 
-def best_xgboost_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_tr: pd.Series, y_te: pd.Series, binary: bool = False, seed: int = 1218) -> Tuple[np.ndarray, XGBClassifier, dict]:
+def best_xgboost_fit(X_train: pd.DataFrame, 
+                     X_test: pd.DataFrame, 
+                     y_tr: pd.Series, 
+                     y_te: pd.Series, 
+                     binary: bool = False, 
+                     seed: int = 1218) -> Tuple[np.ndarray, XGBClassifier, dict]:
     """
     Fits an XGBoost Classifier and returns predictions, the fitted model, and best parameters.
 
@@ -338,7 +364,11 @@ def best_xgboost_fit(X_train: pd.DataFrame, X_test: pd.DataFrame, y_tr: pd.Serie
     return xgb_preds, xgb_clf, xgb_search.best_params_
 
 
-def best_ada_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_res: pd.Series, y_test_res: pd.Series, seed: int = 1218) -> Tuple[np.ndarray, AdaBoostClassifier, dict]:
+def best_ada_fit(X_train_res: pd.DataFrame, 
+                 X_test_res: pd.DataFrame, 
+                 y_train_res: pd.Series, 
+                 y_test_res: pd.Series, 
+                 seed: int = 1218) -> Tuple[np.ndarray, AdaBoostClassifier, dict]:
     """
     Fits an AdaBoost Classifier and returns predictions, the fitted model, and best parameters.
 
@@ -373,7 +403,10 @@ def best_ada_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_re
     return ab_preds, ab_clf, ab_search.best_params_
 
 
-def best_knn_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_res: pd.Series, y_test_res: pd.Series) -> Tuple[np.ndarray, KNeighborsClassifier, dict]:
+def best_knn_fit(X_train_res: pd.DataFrame, 
+                 X_test_res: pd.DataFrame, 
+                 y_train_res: pd.Series, 
+                 y_test_res: pd.Series) -> Tuple[np.ndarray, KNeighborsClassifier, dict]:
     """
     Fits a K-Nearest Neighbors Classifier and returns predictions, the fitted model, and best parameters.
 
@@ -404,7 +437,11 @@ def best_knn_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_re
     return knn_preds, knn_clf, knn_search.best_params_
 
 
-def best_perc_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_res: pd.Series, y_test_res: pd.Series, seed: int = 1218) -> Tuple[np.ndarray, Perceptron, dict]:
+def best_perc_fit(X_train_res: pd.DataFrame, 
+                  X_test_res: pd.DataFrame, 
+                  y_train_res: pd.Series, 
+                  y_test_res: pd.Series, 
+                  seed: int = 1218) -> Tuple[np.ndarray, Perceptron, dict]:
     """
     Fits a Perceptron classifier and returns predictions, the fitted model, and best parameters.
 
@@ -442,7 +479,8 @@ def best_perc_fit(X_train_res: pd.DataFrame, X_test_res: pd.DataFrame, y_train_r
 
 ##### PLOTS ############################################################################################################################
 
-def resampling_compare(y: pd.Series, y_res: pd.Series) -> None:
+def resampling_compare(y: pd.Series, 
+                       y_res: pd.Series) -> None:
     """
     Compares class distribution before and after resampling using pie charts.
 
@@ -479,7 +517,10 @@ def resampling_compare(y: pd.Series, y_res: pd.Series) -> None:
     plt.show()
 
 
-def show_results_complete(X_test: pd.DataFrame, y_test: pd.Series, clf_preds: np.ndarray, clf) -> None:
+def show_results_complete(X_test: pd.DataFrame, 
+                          y_test: pd.Series, 
+                          clf_preds: np.ndarray, 
+                          clf) -> None:
     """
     Displays the classification report and confusion matrix for a classifier's predictions.
 
@@ -502,7 +543,8 @@ def show_results_complete(X_test: pd.DataFrame, y_test: pd.Series, clf_preds: np
     plt.show()
 
 
-def show_results(y: pd.Series, fit_object: Tuple[np.ndarray, dict]) -> None:
+def show_results(y: pd.Series, 
+                 fit_object: Tuple[np.ndarray, dict]) -> None:
     """
     Displays performance metrics and the confusion matrix for given predictions.
 
@@ -540,7 +582,9 @@ def show_results(y: pd.Series, fit_object: Tuple[np.ndarray, dict]) -> None:
     plt.show()
 
 
-def plot_feature_importance(importance: np.ndarray, names: List[str], model_type: str) -> None:
+def plot_feature_importance(importance: np.ndarray, 
+                            names: List[str], 
+                            model_type: str) -> None:
     """
     Plots the feature importances of a model.
 
@@ -569,7 +613,10 @@ def plot_feature_importance(importance: np.ndarray, names: List[str], model_type
     plt.show()
     
 
-def model_comparison(clf_list: List[Tuple], X_test: pd.DataFrame, y_test: pd.Series, le: LabelEncoder) -> dict:
+def model_comparison(clf_list: List[Tuple], 
+                     X_test: pd.DataFrame, 
+                     y_test: pd.Series, 
+                     le: LabelEncoder) -> dict:
     """
     Compares different classifiers by plotting ROC curves and compiling performance metrics.
 
@@ -614,7 +661,9 @@ def model_comparison(clf_list: List[Tuple], X_test: pd.DataFrame, y_test: pd.Ser
 
 #### PREPROCESSING ######################################################################################################################
 
-def resampling_strategy(df: pd.DataFrame, labels: pd.Series, seed: int = 1218) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.Series]:
+def resampling_strategy(df: pd.DataFrame, 
+                        labels: pd.Series, 
+                        seed: int = 1218) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.Series]:
     """
     Applies resampling strategy to the dataset and splits it into training and testing sets.
 
