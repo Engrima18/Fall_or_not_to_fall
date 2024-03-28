@@ -10,6 +10,55 @@ and neural network models
 >- to use the best model obtained to implement a practical solution to fall detection, based
 on the TinyML framework.
 
+## Project Structure
+
+```plaintext
+ToFall_orNot_toFall-main
+│   .gitignore                
+│   LICENSE                   
+│   README.md                 # The file you are reading right now
+│   REPORT.pdf                # Detailed project report
+│   desktop.ini               # Windows folder settings file
+│   main.ipynb                # Jupyter notebook with the project's main code, using only classic ML algorithms (both supervied and unsup. frameworks)
+│
+├───data collection           # Scripts and instructions for data collection
+│       Accell&Gyrosc.ino     # Arduino sketch for accelerometer and gyroscope signals collection 
+│       README.md             # Instructions for data collection
+│       collect.py            # Python script to collect data from Arduino 
+│
+├───deep learning             # Deep learning models and scripts
+│   │   deep_learning.ipynb   # Notebook with deep learning model training and evaluation
+│   │
+│   ├───models                # TensorFlow Lite model (compressed version of best TF model)
+│   │   │   model.tflite
+│   │   │   model_no_quant.tflite
+│   │   │
+│   │   └───model             # Best TensorFlow model weights directory
+│   │       │   keras_metadata.pb
+│   │       │   saved_model.pb
+│   │       │
+│   │       └───variables     # Model variables
+│   │               variables.data-00000-of-00001
+│   │               variables.index
+│   │
+│   └───tinyML                # TinyML model and scaling scripts for microcontrollers
+│           StandardScaler.cc # C++ standard scaler implementation
+│           StandardScaler.h 
+│           main.ino          # Arduino main script for deploying the TinyML model
+│           model.h           
+│
+├───feature extraction        # Scripts for extracting features from the dataset
+│       feature_extraction.py # Python script for feature extraction
+│       file_csv.zip          # Zipped CSV files with real falls to extract interesting features
+│
+├───images                    # Various images used in documentation and reports
+│       ...
+│
+└───main functions            # Helper functions for the project
+        nice_plots.py         # Functions for generating nice plots
+        supervised_funcs.py   # Supervised learning helper functions used in the main notebook
+```
+
 ## Data collection 
 
 Refer to the `README.md` file in the `data collection` directory of this repository for specific info about the collection precess. We used accelerometer and gyroscope sensors to collect falls and normal activities signals simulating real-life context.
