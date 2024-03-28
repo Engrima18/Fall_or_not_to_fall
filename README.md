@@ -12,7 +12,7 @@ on the TinyML framework.
 
 ## Data collection 
 
-Refer to the `data collection` directory for specific info about the collection precess. We used accelerometer and gyroscope sensors to collect falls and normal activities signals simulating real-life context.
+Refer to the `README.md` file in the `data collection` directory of this repository for specific info about the collection precess. We used accelerometer and gyroscope sensors to collect falls and normal activities signals simulating real-life context.
 
 Reverse fall          |  Step | Fall
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -28,14 +28,14 @@ Fourier analysis of signals.
 |-------------|-------------|
 ![fft_gyr](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/a8dd17af-f599-437f-99ce-c4466e735a99)|![fft_acc](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/91ed2c13-b774-4337-9ff0-88d887785791)
 
-Finding the most informative frequencies and applying a lowpass filter.
+Finding the most informative frequencies and applying a lowpass filter (we simply thresholded at the first k frequencies since the lower frequencies contain higher energy).
 
 | <!-- -->    | <!-- -->    | 
 |-------------|-------------|
 ![maxbin_gyr](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/52c1e962-a924-44ad-8d6e-8dd3ea489b1a)|![maxbin_acc](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/430a8544-1e90-40d7-9285-3ce4f3155b86)
 
 
-Wavelet-based algorithm for similarity with real falls data.
+Wavelet-based algorithm for similarity with real falls data that you can find in `feature_extraction\file_csv.zip` file.
 
 | <!-- -->    | <!-- -->    | <!-- -->    | 
 |-------------|-------------|-------------|
@@ -78,3 +78,13 @@ After scaling, resampling with a K-Means SMOTE and selecting a coherent number o
 | AdaBoost    | Random forest    | Perceptron    | 
 |-------------|-------------|-------------|
 ![adaboost_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/0648cd06-0a77-4f59-96fd-a91e8b494f3f)|![rf_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/420538d0-ff9b-4d1d-bc28-151f40c21477)|![percptron_final](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/ab6b6587-d132-4605-a033-5e677e4b8ddf)
+
+## Multi-class classification with deep learning
+
+We therefore decided to try a series of neural architectures that did not require the use of special feature extraction techniques. As we expected, we obtained results comparable or superior to the best classical machine learning models.
+
+We noticed how, therefore, the deep learning approach avoids great efforts to extract fundamental features from the signals, at the expense of a lack of interpretability of the results.
+
+Here we report the results for our best deep learning model: the **CBAM-EDU (Convolutional-Bidirectional LSTM with Educational Enhancements)**.
+
+![NN_res](https://github.com/Engrima18/ToFall_orNot_toFall/assets/93355495/f245fb5d-9efc-4aee-b31f-96a39391c175)
