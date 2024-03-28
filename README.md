@@ -1,13 +1,21 @@
 # To fall or not to fall
 
+In the project we tried to apply all our knowledge in the area of statisitcal learning by focusing on:
+- feature extraction through signal processing techniques
+- training of various classification models (SVM, KNN, Logistic, NN etc.)
+- hyperparamenter selection for each model and model selection
+- compression of deep learning models
+
+We invite you to read `REPORT.pdf` for a more detailed explanation of the algorithms used and the reasoning followed.
+
 The project has the following goals:
->- to simulate a collection of falls by using specific sensors and experimenting with different
+- to simulate a collection of falls by using specific sensors and experimenting with different
 fall modes
->- to try to mitigate the effect of bias due to the synthetic (simulation) approach by special
+- to try to mitigate the effect of bias due to the synthetic (simulation) approach by special
 feature extraction algorithms using a small amount of real falls data.
->- to develop fall classification algorithms both based on classical machine learning models
+- to develop fall classification algorithms both based on classical machine learning models
 and neural network models
->- to use the best model obtained to implement a practical solution to fall detection, based
+- to use the best model obtained to implement a practical solution to fall detection, based
 on the TinyML framework.
 
 ## Project Structure
